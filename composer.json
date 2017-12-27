@@ -1,0 +1,40 @@
+{
+    "name": "springbuck/laravel-coinhive",
+    "description": "A elegant Laravel implementation of the HTTP API for coinhive.",
+    "keywords": ["Laravel", "Coinhive", "API"],
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Isaiah Iroko",
+            "email": "isaiahiroko@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": "5.5.*",
+        "dingo/api": "^2.0.0-alpha1",
+        "guzzlehttp/guzzle": "^6.3",
+        "isaiahiroko/laravel-foundation": "^0.0.0",
+        "isaiahiroko/laravel-webgets": "^0.0.0"
+	},
+    "require-dev": {
+        "filp/whoops": "~2.0",
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "~1.0",
+        "phpunit/phpunit": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Springbuck\\LaravelCoinhive\\": "src/"
+        }
+    }, 
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Springbuck\\LaravelCoinhive\\CoinhiveServiceProvider"
+            ],
+            "aliases": {}
+        }
+    }
+}
