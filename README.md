@@ -18,7 +18,7 @@ $ composer require springbuck/laravel-coinhive
 
 "require": {
     ...
-    "springbuck/laravel-coinhive": "^0.0.0",
+    "springbuck/laravel-coinhive": "~0.0.0",
     ...
 }
 ```
