@@ -1,6 +1,6 @@
 <?php
 
-namespace Springbuck\Coinhive;
+namespace Springbuck\LaravelCoinhive;
 
 use Illuminate\Support\ServiceProvider;
 
