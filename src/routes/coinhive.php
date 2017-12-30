@@ -1,32 +1,39 @@
 <?php
 
-Route::group(['middleware' => ['api']], function () {
+/*
+ * API routes using Dingo\Api Package
+ */
 
-    Route::prefix('coinhive')->group(function () {
+$api = app('Dingo\Api\Routing\Router');
 
-        Route::prefix('token')->group(function () {
-            Route::post('verify', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@postTokenVerify')->name('coinhive.token.verify');
+$api->version('v1', function($api){
+    $api->group(['prefix' => 'coinhive', 'middleware' => ['api.throttle']], function ($api) {
+        
+        $api->get('meta', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@getMeta');
+
+        $api->group(['prefix' => 'token'], function () {
+            $api->post('verify', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@postTokenVerify')->name('coinhive.token.verify');
         });
         
-        Route::prefix('links')->group(function () {
-            Route::post('create', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@postusersCreate')->name('coinhive.users.create');
+        $api->group(['prefix' => 'links'], function () {
+            $api->post('create', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@postusersCreate')->name('coinhive.users.create');
         });
 
-        Route::prefix('user')->group(function () {
-            Route::get('balance', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@getUserBalance')->name('coinhive.user.balance');
-            Route::post('withdraw', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@postUserWithdraw')->name('coinhive.user.withdraw');
-            Route::get('top', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@getUserTop')->name('coinhive.user.top');
-            Route::get('list', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@getUserList')->name('coinhive.user.list');
-            Route::post('reset', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@postUserReset')->name('coinhive.user.reset');
-            Route::post('reset-all', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@postUserResetAll')->name('coinhive.user.reset-all');
+        $api->group(['prefix' => 'user'], function () {
+            $api->get('balance', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@getUserBalance')->name('coinhive.user.balance');
+            $api->post('withdraw', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@postUserWithdraw')->name('coinhive.user.withdraw');
+            $api->get('top', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@getUserTop')->name('coinhive.user.top');
+            $api->get('list', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@getUserList')->name('coinhive.user.list');
+            $api->post('reset', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@postUserReset')->name('coinhive.user.reset');
+            $api->post('reset-all', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@postUserResetAll')->name('coinhive.user.reset-all');
         });
 
-        Route::prefix('stats')->group(function () {
-            Route::get('payout', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@getStatsPayout')->name('coinhive.stats.payout');
-            Route::get('site', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@getStatsSite')->name('coinhive.stats.site');
-            Route::get('history', 'Springbuck\LaravelCoinhive\Ctrls\Coinhive@getStatsHistory')->name('coinhive.stats.history');
+        $api->group(['prefix' => 'stats'], function () {
+            $api->get('payout', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@getStatsPayout')->name('coinhive.stats.payout');
+            $api->get('site', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@getStatsSite')->name('coinhive.stats.site');
+            $api->get('history', 'Springbuck\LaravelCoinhive\Ctrls\CoinhiveCtrl@getStatsHistory')->name('coinhive.stats.history');
         });
 
+        $api->get('version', 'Springbuck\LaravelAnalytics\Ctrls\AnalyticsCtrl@getMeta');
     });
-
 });

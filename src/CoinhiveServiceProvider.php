@@ -11,7 +11,7 @@ class CoinhiveServiceProvider extends ServiceProvider{
     *
     * @var bool
     */	
-    protected $defer = false;
+    protected $defer = true;
 
 
     /**

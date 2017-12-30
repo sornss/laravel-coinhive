@@ -8,7 +8,7 @@ use Springbuck\LaravelCoinhive\Services\Links;
 use Springbuck\LaravelCoinhive\Services\User;
 use Springbuck\LaravelCoinhive\Services\Stats;
 
-class Coinhive
+class CoinhiveCtrl
 {
     protected $token, $links, $user, $stats;
     protected $header = [];
@@ -20,6 +20,13 @@ class Coinhive
         $this->user = $user;
         $this->stats = $stats;
         $this->name = $this->req->input('name');
+    }
+
+    public function getMeta(){
+        return $this->jsonify([
+            'name' => 'Laravel Coinhive', 
+            'version' => '0.0.0'
+        ]);
     }
     
     public function postTokenVerify(){

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: IROKO ISAIAH
- * Date: 2/16/2017
- * Time: 8:14 PM
- */
 
 namespace Springbuck\LaravelCoinhive\Services;
 
