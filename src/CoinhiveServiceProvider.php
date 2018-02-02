@@ -11,7 +11,7 @@ class CoinhiveServiceProvider extends ServiceProvider{
     *
     * @var bool
     */	
-    protected $defer = true;
+    protected $defer = false;
 
 
     /**
@@ -26,7 +26,18 @@ class CoinhiveServiceProvider extends ServiceProvider{
         // CONFIGS
         $this->publishes([
             __DIR__.'/coinhive.php' => config_path('coinhive.php'),
-        ]);
+        ], 'coinhive-config');
+
+        // DATABASE: Migrations
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->publishes([
+            __DIR__.'/database/migrations' => database_path('migrations')
+        ], 'coinhive-migrations');
+
+        // DATABASE: Seeds
+        $this->publishes([
+            __DIR__.'/database/seeds' => database_path('seeds')
+        ], 'coinhive-seeders');
     }
 
     /**
@@ -39,5 +50,11 @@ class CoinhiveServiceProvider extends ServiceProvider{
         $this->mergeConfigFrom(
             __DIR__.'/coinhive.php', 'coinhive'
         );
+        
+        // Console Command 
+        $this->commands([
+            \Springbuck\LaravelCoinhive\Console\Commands\Install::class,
+            \Springbuck\LaravelCoinhive\Console\Commands\UnInstall::class
+        ]);
     }
 }

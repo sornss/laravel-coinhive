@@ -8,13 +8,18 @@ use Springbuck\LaravelCoinhive\Services\Links;
 use Springbuck\LaravelCoinhive\Services\User;
 use Springbuck\LaravelCoinhive\Services\Stats;
 
-class CoinhiveCtrl
+use Springbuck\LaravelFoundation\Ctrls\CoreCtrl;
+use Springbuck\LaravelFoundation\Services\Apt;
+
+class CoinhiveCtrl extends CoreCtrl
 {
+    protected $apt;
     protected $token, $links, $user, $stats;
     protected $header = [];
     
-    public function __construct(Request $req, Token $token, Links $links, User $user, Stats $stats){
+    public function __construct(Request $req, Apt $apt, Token $token, Links $links, User $user, Stats $stats){
         $this->req = $req;
+        $this->apt = $apt;
         $this->token = $token;
         $this->links = $links;
         $this->user = $user;
@@ -84,7 +89,4 @@ class CoinhiveCtrl
         return $this->jsonify($this->stats->history($start, $stop));
     }
 
-    public function jsonify(array $data, $status = 200, $header = []){
-        return response()->json($data, $status, array_merge($this->header, $header));
-    }
 }
